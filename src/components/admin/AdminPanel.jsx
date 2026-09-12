@@ -27,11 +27,14 @@ export default function AdminPanel({ onClose }) {
     siteConfig,
     heroConfig,
     products,
+    categories,
     offerBanner,
     testimonials,
     finalCta,
     footerConfig,
     orders,
+    addCategory,
+    deleteCategory,
     updateSiteConfig,
     updateHeroConfig,
     addProduct,
@@ -169,9 +172,12 @@ export default function AdminPanel({ onClose }) {
             {activeTab === 'products' && (
               <TabProducts
                 products={products}
+                categories={categories}
                 onAdd={addProduct}
                 onEdit={editProduct}
                 onDelete={deleteProduct}
+                onAddCategory={addCategory}
+                onDeleteCategory={deleteCategory}
                 onNotify={triggerNotification}
               />
             )}

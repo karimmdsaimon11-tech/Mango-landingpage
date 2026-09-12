@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
+import { MANGO_CATEGORIES, MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
 
 const WebsiteContext = createContext(null);
 
 const STORAGE_KEY = 'bengali_mango_cms_v2';
+
+const DEFAULT_CATEGORIES = MANGO_CATEGORIES.filter(c => c.id !== 'all');
 
 const DEFAULT_STATE = {
   siteConfig: {
@@ -23,6 +25,7 @@ const DEFAULT_STATE = {
     trustBadges: ['১০০% ফ্রেশ', 'সরাসরি বাগান থেকে', 'নিরাপদ ডেলিভারি'],
     image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=85',
   },
+  categories: DEFAULT_CATEGORIES,
   trustFeatures: TRUST_FEATURES,
   products: MANGO_PRODUCTS,
   offerBanner: {
@@ -81,7 +84,19 @@ export function WebsiteProvider({ children }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        const existingCats = Array.isArray(parsed.categories) ? parsed.categories : [];
+        const mergedCategories = [...existingCats];
+        DEFAULT_CATEGORIES.forEach(def => {
+          if (!mergedCategories.some(c => c.id === def.id || c.name.trim().toLowerCase() === def.name.trim().toLowerCase())) {
+            mergedCategories.push(def);
+          }
+        });
+        return {
+          ...DEFAULT_STATE,
+          ...parsed,
+          categories: mergedCategories
+        };
       }
     } catch (err) {
       console.error('Failed to parse saved website data:', err);
@@ -201,6 +216,38 @@ export function WebsiteProvider({ children }) {
     }));
   };
 
+  const addCategory = (categoryName) => {
+    const trimmed = (categoryName || '').trim();
+    if (!trimmed) return null;
+
+    const currentCategories = data.categories || DEFAULT_CATEGORIES;
+    const existing = currentCategories.find(
+      c => c.name.toLowerCase() === trimmed.toLowerCase()
+    );
+    if (existing) {
+      return existing;
+    }
+
+    const newCategory = {
+      id: 'cat_' + Date.now(),
+      name: trimmed
+    };
+
+    setData(prev => ({
+      ...prev,
+      categories: [...(prev.categories || DEFAULT_CATEGORIES), newCategory]
+    }));
+
+    return newCategory;
+  };
+
+  const deleteCategory = (id) => {
+    setData(prev => ({
+      ...prev,
+      categories: (prev.categories || DEFAULT_CATEGORIES).filter(c => c.id !== id)
+    }));
+  };
+
   const resetToDefaults = () => {
     if (window.confirm('আপনি কি নিশ্চিত যে সমস্ত কন্টেন্ট ডিফল্ট অবস্থায় ফিরিয়ে নিতে চান? আপনার সমস্ত পরিবর্তন মুছে যাবে।')) {
       setData(DEFAULT_STATE);
@@ -213,6 +260,9 @@ export function WebsiteProvider({ children }) {
   return (
     <WebsiteContext.Provider value={{
       ...data,
+      categories: data.categories || DEFAULT_CATEGORIES,
+      addCategory,
+      deleteCategory,
       updateSiteConfig,
       updateHeroConfig,
       updateTrustFeatures,

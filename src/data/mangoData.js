@@ -1,11 +1,15 @@
 export const MANGO_CATEGORIES = [
   { id: 'all', name: 'সকল আম' },
-  { id: 'himsagar', name: 'হিমসাগর আম' },
-  { id: 'haribhanga', name: 'হাঁড়িভাঙা আম' },
-  { id: 'langra', name: 'ল্যাংড়া আম' },
-  { id: 'amrupali', name: 'আম্রপালি আম' },
-  { id: 'fazli', name: 'ফজলি আম' },
-  { id: 'gopalbhog', name: 'গোপালভোগ আম' },
+  { id: 'himsagar', name: 'হিমসাগর' },
+  { id: 'haribhanga', name: 'হাঁড়িভাঙা' },
+  { id: 'langra', name: 'ল্যাংড়া' },
+  { id: 'amrupali', name: 'আম্রপালি' },
+  { id: 'fazli', name: 'ফজলি' },
+  { id: 'gopalbhog', name: 'গোপালভোগ' },
+  { id: 'khirsapat', name: 'খিরসাপাত' },
+  { id: 'ashwina', name: 'আশ্বিনা' },
+  { id: 'katimon', name: 'কাটিমন' },
+  { id: 'banana_mango', name: 'ব্যানানা আম' },
 ];
 
 export const MANGO_PRODUCTS = [
