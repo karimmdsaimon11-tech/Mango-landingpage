@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../../context/WebsiteContext';
 import AdminHeader from './AdminHeader';
+import AdminLogin from './AdminLogin';
 import TabDashboard from './TabDashboard';
 import TabProducts from './TabProducts';
 import TabHero from './TabHero';
@@ -45,6 +46,9 @@ export default function AdminPanel({ onClose }) {
     resetToDefaults
   } = useWebsite();
 
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('admin_auth_session') === 'true';
+  });
   const [activeTab, setActiveTab] = useState('dashboard');
   const [saveAlert, setSaveAlert] = useState(false);
 
@@ -52,6 +56,22 @@ export default function AdminPanel({ onClose }) {
     setSaveAlert(msg);
     setTimeout(() => setSaveAlert(false), 3000);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_auth_session');
+    setIsAuthenticated(false);
+    onClose();
+  };
+
+  // If not authenticated, require Gmail & Password login
+  if (!isAuthenticated) {
+    return (
+      <AdminLogin
+        onLoginSuccess={() => setIsAuthenticated(true)}
+        onClose={onClose}
+      />
+    );
+  }
 
   const tabs = [
     { id: 'dashboard', label: 'ড্যাশবোর্ড', icon: LayoutDashboard },
@@ -68,7 +88,11 @@ export default function AdminPanel({ onClose }) {
     <div className="fixed inset-0 z-50 bg-gray-100 flex flex-col font-bengali text-gray-800 overflow-hidden">
       
       {/* Top Navbar */}
-      <AdminHeader onClose={onClose} onReset={resetToDefaults} />
+      <AdminHeader
+        onClose={onClose}
+        onReset={resetToDefaults}
+        onLogout={handleLogout}
+      />
 
       {/* Save Notification Banner */}
       {saveAlert && (
