@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 
 export default function CartDrawer({

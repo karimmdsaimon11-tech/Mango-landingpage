@@ -1,4 +1,4 @@
-﻿export const MANGO_CATEGORIES = [
+export const MANGO_CATEGORIES = [
   { id: 'all', name: 'সকল আম' },
   { id: 'himsagar', name: 'হিমসাগর আম' },
   { id: 'haribhanga', name: 'হাঁড়িভাঙা আম' },

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useWebsite } from '../context/WebsiteContext';
 import { Star, CheckCircle, Quote } from 'lucide-react';
 

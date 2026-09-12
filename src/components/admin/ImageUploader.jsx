@@ -1,4 +1,4 @@
-﻿import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Upload, Image as ImageIcon, CheckCircle, RefreshCw } from 'lucide-react';
 
 export default function ImageUploader({ label, value, onChange, helperText }) {

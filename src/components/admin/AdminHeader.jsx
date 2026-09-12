@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 
 export default function AdminHeader({ onClose, onReset }) {

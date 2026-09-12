@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { X, Search, ShoppingCart, ArrowRight } from 'lucide-react';
 import { MANGO_PRODUCTS } from '../data/mangoData';
 

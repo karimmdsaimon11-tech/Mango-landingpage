@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Leaf, Sparkles, Truck, Award } from 'lucide-react';
 
 export default function TrustSection() {

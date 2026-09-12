@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, User, ShoppingBag, Menu, X, Truck, Settings } from 'lucide-react';
 import { useWebsite } from '../context/WebsiteContext';
 

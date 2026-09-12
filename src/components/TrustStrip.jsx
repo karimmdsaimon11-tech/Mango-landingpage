@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Leaf, Truck, ShieldCheck, Headphones } from 'lucide-react';
 
 export default function TrustStrip() {

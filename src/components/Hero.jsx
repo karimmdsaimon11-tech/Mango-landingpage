@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ShoppingCart, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useWebsite } from '../context/WebsiteContext';
 

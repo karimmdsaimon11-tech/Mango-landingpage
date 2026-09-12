@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import ProductCard from './ProductCard';
 import { MANGO_CATEGORIES } from '../data/mangoData';
 import { useWebsite } from '../context/WebsiteContext';

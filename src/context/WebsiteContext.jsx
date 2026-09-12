@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
 
 const WebsiteContext = createContext(null);

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ExternalLink } from 'lucide-react';
 
 export default function TabDashboard({ products, orders, testimonials, siteConfig, onNavigate, onClose }) {

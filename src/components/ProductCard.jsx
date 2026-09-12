@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ShoppingCart, Star, MapPin } from 'lucide-react';
 
 export default function ProductCard({ product, onOrderClick, onAddToCart }) {

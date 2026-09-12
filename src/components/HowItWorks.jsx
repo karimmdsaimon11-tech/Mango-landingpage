@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { HOW_IT_WORKS_STEPS } from '../data/mangoData';
 import { CheckCircle } from 'lucide-react';
 

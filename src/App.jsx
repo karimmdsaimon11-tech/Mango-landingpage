@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WebsiteProvider, useWebsite } from './context/WebsiteContext';
 import AnnouncementBar from './components/AnnouncementBar';
 import Header from './components/Header';
