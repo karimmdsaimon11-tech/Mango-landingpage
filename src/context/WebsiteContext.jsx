@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MANGO_CATEGORIES, MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
+import { savePersistentData, loadPersistentData, clearPersistentData } from '../utils/storage';
 
 const WebsiteContext = createContext(null);
 
@@ -104,13 +105,34 @@ export function WebsiteProvider({ children }) {
     return DEFAULT_STATE;
   });
 
-  // Save to localStorage whenever data changes
+  // On mount: Load from IndexedDB (preserves all photos & CMS changes permanently)
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (err) {
-      console.error('Failed to save website data:', err);
-    }
+    let isMounted = true;
+    loadPersistentData(STORAGE_KEY, null).then((saved) => {
+      if (isMounted && saved && typeof saved === 'object') {
+        const existingCats = Array.isArray(saved.categories) ? saved.categories : [];
+        const mergedCategories = [...existingCats];
+        DEFAULT_CATEGORIES.forEach(def => {
+          if (!mergedCategories.some(c => c.id === def.id || c.name.trim().toLowerCase() === def.name.trim().toLowerCase())) {
+            mergedCategories.push(def);
+          }
+        });
+        setData(prev => ({
+          ...DEFAULT_STATE,
+          ...prev,
+          ...saved,
+          categories: mergedCategories
+        }));
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Save to both IndexedDB and localStorage whenever data changes
+  useEffect(() => {
+    savePersistentData(STORAGE_KEY, data);
   }, [data]);
 
   // Update Methods
@@ -248,12 +270,10 @@ export function WebsiteProvider({ children }) {
     }));
   };
 
-  const resetToDefaults = () => {
+  const resetToDefaults = async () => {
     if (window.confirm('আপনি কি নিশ্চিত যে সমস্ত কন্টেন্ট ডিফল্ট অবস্থায় ফিরিয়ে নিতে চান? আপনার সমস্ত পরিবর্তন মুছে যাবে।')) {
       setData(DEFAULT_STATE);
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (e) {}
+      await clearPersistentData(STORAGE_KEY);
     }
   };
 

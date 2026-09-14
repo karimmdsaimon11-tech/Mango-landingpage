@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
 import ImageUploader from './ImageUploader';
 
 export default function TabOffers({ offerBanner, finalCta, onSaveOffer, onSaveFinalCta, onNotify }) {
   const [offerForm, setOfferForm] = useState({ ...offerBanner });
   const [ctaForm, setCtaForm] = useState({ ...finalCta });
+
+  useEffect(() => {
+    setOfferForm({ ...offerBanner });
+  }, [offerBanner]);
+
+  useEffect(() => {
+    setCtaForm({ ...finalCta });
+  }, [finalCta]);
 
   const handleOfferSubmit = (e) => {
     e.preventDefault();
@@ -82,8 +90,13 @@ export default function TabOffers({ offerBanner, finalCta, onSaveOffer, onSaveFi
           <ImageUploader
             label="অফার ব্যানার ছবি (Photo Upload)"
             value={offerForm.image}
-            onChange={(img) => setOfferForm({ ...offerForm, image: img })}
-            helperText="ডিভাইস থেকে অফার ব্যানারের ছবি আপলোড করুন।"
+            onChange={(img) => {
+              const updated = { ...offerForm, image: img };
+              setOfferForm(updated);
+              onSaveOffer(updated);
+              if (onNotify) onNotify('অফার ব্যানারের নতুন ছবি স্থায়ীভাবে সেভ হয়েছে!');
+            }}
+            helperText="ডিভাইস থেকে অফার ব্যানারের ছবি আপলোড করুন (স্বয়ংক্রিয়ভাবে পার্মানেন্ট সেভ হবে)।"
           />
 
           <button

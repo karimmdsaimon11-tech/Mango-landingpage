@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
-import { Upload, Image as ImageIcon, CheckCircle, RefreshCw } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Upload, Image as ImageIcon, CheckCircle, RefreshCw, Loader2 } from 'lucide-react';
+import { compressImageFile } from '../../utils/imageCompressor';
 
 export default function ImageUploader({ label, value, onChange, helperText }) {
   const fileInputRef = useRef(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
     // Validate if it's an image
@@ -14,12 +16,25 @@ export default function ImageUploader({ label, value, onChange, helperText }) {
       return;
     }
 
-    // Read as Base64 Data URL so it saves directly in state and localStorage
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      onChange(event.target.result);
-    };
-    reader.readAsDataURL(file);
+    try {
+      setIsProcessing(true);
+      // Automatically compress and resize to max 1000px WebP/JPEG (typically 30-70KB)
+      // This guarantees the image permanently saves without exceeding storage limits!
+      const compressedDataUrl = await compressImageFile(file, 1000, 1000, 0.8);
+      onChange(compressedDataUrl);
+    } catch (err) {
+      console.warn('Canvas compression failed, falling back to direct reader:', err);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        onChange(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setIsProcessing(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   return (
@@ -66,14 +81,24 @@ export default function ImageUploader({ label, value, onChange, helperText }) {
           <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
             <button
               type="button"
+              disabled={isProcessing}
               onClick={() => fileInputRef.current?.click()}
-              className="bg-[#087F23] hover:bg-[#006B18] text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-xs transition-all"
+              className="bg-[#087F23] hover:bg-[#006B18] text-white text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-xs transition-all disabled:opacity-60"
             >
-              <Upload size={14} />
-              <span>{value ? 'ছবি পরিবর্তন করুন' : 'ছবি আপলোড করুন'}</span>
+              {isProcessing ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" />
+                  <span>ছবি প্রসেস হচ্ছে...</span>
+                </>
+              ) : (
+                <>
+                  <Upload size={14} />
+                  <span>{value ? 'ছবি পরিবর্তন করুন' : 'ছবি আপলোড করুন'}</span>
+                </>
+              )}
             </button>
 
-            {value && (
+            {value && !isProcessing && (
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}

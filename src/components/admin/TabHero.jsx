@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
 import ImageUploader from './ImageUploader';
 
 export default function TabHero({ heroConfig, onSave, onNotify }) {
   const [form, setForm] = useState({ ...heroConfig });
+
+  useEffect(() => {
+    setForm({ ...heroConfig });
+  }, [heroConfig]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,8 +89,13 @@ export default function TabHero({ heroConfig, onSave, onNotify }) {
         <ImageUploader
           label="হিরো ব্যানার আমের ছবি (Photo Upload)"
           value={form.image}
-          onChange={(newImage) => setForm({ ...form, image: newImage })}
-          helperText="আপনার কম্পিউটার বা মোবাইল থেকে সরাসরি আমের ছবি নির্বাচন করুন।"
+          onChange={(newImage) => {
+            const updated = { ...form, image: newImage };
+            setForm(updated);
+            onSave(updated);
+            if (onNotify) onNotify('হিরো ব্যানারের নতুন ছবি স্থায়ীভাবে সেভ হয়েছে!');
+          }}
+          helperText="আপনার কম্পিউটার বা মোবাইল থেকে সরাসরি আমের ছবি নির্বাচন করুন (স্বয়ংক্রিয়ভাবে পার্মানেন্ট সেভ হবে)।"
         />
 
         <button
