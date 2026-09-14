@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
+import ImageUploader from './ImageUploader';
 
 export default function TabSite({ siteConfig, onSave, onNotify }) {
   const [form, setForm] = useState({ ...siteConfig });
+
+  useEffect(() => {
+    setForm({ ...siteConfig });
+  }, [siteConfig]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,23 +56,40 @@ export default function TabSite({ siteConfig, onSave, onNotify }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-gray-700 mb-1">ব্র্যান্ড নাম</label>
+            <label className="block text-xs font-bold text-gray-700 mb-1">ব্র্যান্ড নাম (Brand Name)</label>
             <input
               type="text"
               value={form.brandName}
               onChange={e => setForm({ ...form, brandName: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg p-2 text-xs sm:text-sm focus:ring-2 focus:ring-[#087F23] focus:outline-none"
+              className="w-full border border-gray-300 rounded-lg p-2 text-xs sm:text-sm focus:ring-2 focus:ring-[#087F23] focus:outline-none font-bold"
+              placeholder="Mango Bazar"
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-gray-700 mb-1">ব্র্যান্ড স্লোগান</label>
+            <label className="block text-xs font-bold text-gray-700 mb-1">ব্র্যান্ড স্লোগান (Brand Subtitle)</label>
             <input
               type="text"
               value={form.brandSubtitle}
               onChange={e => setForm({ ...form, brandSubtitle: e.target.value })}
               className="w-full border border-gray-300 rounded-lg p-2 text-xs sm:text-sm focus:ring-2 focus:ring-[#087F23] focus:outline-none"
+              placeholder="100% natural and fresh"
             />
           </div>
+        </div>
+
+        {/* Website Mango Logo Uploader */}
+        <div className="pt-1">
+          <ImageUploader
+            label="ম্যাঙ্গো লোগো ছবি (Website Mango Logo Upload)"
+            value={form.logoImage}
+            onChange={(newLogo) => {
+              const updated = { ...form, logoImage: newLogo };
+              setForm(updated);
+              onSave(updated);
+              if (onNotify) onNotify('নতুন লোগো সফলভাবে সেভ হয়েছে!');
+            }}
+            helperText="আপনার ম্যাঙ্গো লোগো ছবি (PNG, JPG, WebP) আপলোড করুন। কোনো ছবি না দিলে ডিফল্ট ম্যাঙ্গো আইকন প্রদর্শিত হবে।"
+          />
         </div>
 
         <button

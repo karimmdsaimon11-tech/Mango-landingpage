@@ -92,6 +92,7 @@ export default function AdminPanel({ onClose }) {
       
       {/* Top Navbar */}
       <AdminHeader
+        siteConfig={siteConfig}
         onClose={onClose}
         onReset={resetToDefaults}
         onLogout={handleLogout}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Settings } from 'lucide-react';
 import { useWebsite } from '../context/WebsiteContext';
+import DefaultMangoLogo from './DefaultMangoLogo';
 
 export default function Footer({ onOpenTrackOrder, onOpenAdmin }) {
   const { footerConfig, siteConfig } = useWebsite();
@@ -12,18 +13,24 @@ export default function Footer({ onOpenTrackOrder, onOpenAdmin }) {
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10 text-left">
           
-          {/* Left Column: Brand & About (Matching screenshot) */}
+          {/* Left Column: Brand & About */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-                <span className="text-2xl font-black text-[#F6C928]">আম</span>
-              </div>
+            <div className="flex items-center gap-2.5">
+              {siteConfig?.logoImage ? (
+                <img
+                  src={siteConfig.logoImage}
+                  alt={siteConfig.brandName || 'Mango Bazar'}
+                  className="w-10 h-10 object-contain rounded-full bg-white p-0.5 border border-white/20 shrink-0 shadow-xs"
+                />
+              ) : (
+                <DefaultMangoLogo className="w-10 h-10 bg-white/10 border-white/20" />
+              )}
               <div>
-                <span className="text-2xl font-bold text-white tracking-tight">
-                  {siteConfig.brandName || 'আম'}<span className="text-[#F6C928]">বাজার</span>
+                <span className="text-2xl font-black text-white tracking-tight">
+                  {siteConfig?.brandName || 'Mango Bazar'}
                 </span>
-                <p className="text-[10px] text-emerald-200">
-                  {siteConfig.brandSubtitle || '১০০% প্রাকৃতিক ও ফ্রেশ'}
+                <p className="text-[10px] text-emerald-200 mt-0.5">
+                  {siteConfig?.brandSubtitle || '100% natural and fresh'}
                 </p>
               </div>
             </div>

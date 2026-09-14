@@ -1,16 +1,23 @@
 import React from 'react';
 import { ArrowLeft, RotateCcw, LogOut } from 'lucide-react';
+import DefaultMangoLogo from '../DefaultMangoLogo';
 
-export default function AdminHeader({ onClose, onReset, onLogout }) {
+export default function AdminHeader({ siteConfig, onClose, onReset, onLogout }) {
   return (
     <header className="bg-[#006B18] text-white h-16 px-4 sm:px-6 flex items-center justify-between shadow-md shrink-0">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-          <span className="text-xl font-bold text-[#F6C928]">আম</span>
-        </div>
+        {siteConfig?.logoImage ? (
+          <img
+            src={siteConfig.logoImage}
+            alt={siteConfig.brandName || "Mango Bazar"}
+            className="w-10 h-10 object-contain rounded-full bg-white p-0.5 border border-white/20 shrink-0 shadow-xs"
+          />
+        ) : (
+          <DefaultMangoLogo className="w-10 h-10 bg-white/10 border-white/20" />
+        )}
         <div>
           <h1 className="font-black text-base sm:text-lg leading-tight flex items-center gap-2">
-            <span>আমবাজার — অ্যাডমিন কন্ট্রোল প্যানেল</span>
+            <span>{siteConfig?.brandName || 'Mango Bazar'} — অ্যাডমিন কন্ট্রোল প্যানেল</span>
             <span className="bg-[#F6C928] text-gray-950 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
               সিকিউর মোড
             </span>

@@ -13,8 +13,9 @@ const DEFAULT_STATE = {
     announcementText: 'রাসায়নিক ও ফরমালিন মুক্ত ১০০% খাঁটি গাছপাকা আম',
     phone: '018112345678',
     whatsapp: '018112345678',
-    brandName: 'আমবাজার',
-    brandSubtitle: '১০০% প্রাকৃতিক ও ফ্রেশ',
+    brandName: 'Mango Bazar',
+    brandSubtitle: '100% natural and fresh',
+    logoImage: '',
   },
   heroConfig: {
     badge: 'রাজশাহী ও চাঁপাইনবাবগঞ্জের আসল আম',
@@ -93,9 +94,18 @@ export function WebsiteProvider({ children }) {
             mergedCategories.push(def);
           }
         });
+        const existingSite = parsed.siteConfig || {};
+        const mergedSite = {
+          ...DEFAULT_STATE.siteConfig,
+          ...existingSite,
+          brandName: (existingSite.brandName && existingSite.brandName !== 'আমবাজার') ? existingSite.brandName : 'Mango Bazar',
+          brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
+          logoImage: existingSite.logoImage || '',
+        };
         return {
           ...DEFAULT_STATE,
           ...parsed,
+          siteConfig: mergedSite,
           categories: mergedCategories
         };
       }
@@ -117,10 +127,19 @@ export function WebsiteProvider({ children }) {
             mergedCategories.push(def);
           }
         });
+        const existingSite = saved.siteConfig || {};
+        const mergedSite = {
+          ...DEFAULT_STATE.siteConfig,
+          ...existingSite,
+          brandName: (existingSite.brandName && existingSite.brandName !== 'আমবাজার') ? existingSite.brandName : 'Mango Bazar',
+          brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
+          logoImage: existingSite.logoImage || '',
+        };
         setData(prev => ({
           ...DEFAULT_STATE,
           ...prev,
           ...saved,
+          siteConfig: mergedSite,
           categories: mergedCategories
         }));
       }

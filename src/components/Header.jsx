@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, User, ShoppingBag, Menu, X, Truck, Settings } from 'lucide-react';
 import { useWebsite } from '../context/WebsiteContext';
+import DefaultMangoLogo from './DefaultMangoLogo';
 
 export default function Header({ 
   cartCount, 
@@ -24,20 +25,23 @@ export default function Header({
     <header className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm transition-all">
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         
-        {/* Brand Logo (Matching Reference Screenshot: "আম") */}
-        <a href="#home" className="flex items-center gap-2 group">
-          <div className="relative flex items-center justify-center">
-            <div className="w-10 h-10 rounded-full bg-[#EAF8E5] flex items-center justify-center border border-[#087F23]/20 group-hover:scale-105 transition-transform shadow-xs">
-              <span className="text-2xl font-black text-[#087F23] tracking-tight">আম</span>
-            </div>
-            <span className="absolute -top-1 -right-1 text-xs">🍃</span>
-          </div>
+        {/* Brand Logo & Name */}
+        <a href="#home" className="flex items-center gap-2.5 group">
+          {siteConfig?.logoImage ? (
+            <img
+              src={siteConfig.logoImage}
+              alt={siteConfig.brandName || 'Mango Bazar'}
+              className="w-10 h-10 object-contain rounded-full border border-gray-200 shadow-xs bg-white shrink-0 group-hover:scale-105 transition-transform"
+            />
+          ) : (
+            <DefaultMangoLogo className="w-10 h-10 group-hover:scale-105 transition-transform" />
+          )}
           <div className="flex flex-col text-left">
-            <span className="text-xl font-bold text-[#087F23] leading-none tracking-tight">
-              {siteConfig.brandName || 'আমবাজার'}
+            <span className="text-xl font-black text-[#087F23] leading-none tracking-tight">
+              {siteConfig?.brandName || 'Mango Bazar'}
             </span>
-            <span className="text-[10px] text-gray-500 font-medium tracking-wide">
-              {siteConfig.brandSubtitle || '১০০% প্রাকৃতিক ও ফ্রেশ'}
+            <span className="text-[10px] text-gray-500 font-medium tracking-wide mt-0.5">
+              {siteConfig?.brandSubtitle || '100% natural and fresh'}
             </span>
           </div>
         </a>
