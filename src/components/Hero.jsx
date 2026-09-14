@@ -94,30 +94,39 @@ export default function Hero({ onOrderClick }) {
                   {/* Floating Mango Quality Badge */}
                   <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md text-[#222222] p-2.5 rounded-xl flex items-center justify-between shadow-lg border border-white">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl">🥭</span>
+                      <span className="text-2xl">{heroConfig.bottomBadgeIcon || '🥭'}</span>
                       <div className="text-left">
-                        <p className="text-xs font-bold text-[#087F23] leading-tight">গাছপাকা প্রিমিয়াম আম</p>
-                        <p className="text-[10px] text-gray-500">মিষ্টি, সুগন্ধি ও ফরমালিন মুক্ত</p>
+                        <p className="text-xs font-bold text-[#087F23] leading-tight">{heroConfig.bottomBadgeTitle || 'গাছপাকা প্রিমিয়াম আম'}</p>
+                        <p className="text-[10px] text-gray-500">{heroConfig.bottomBadgeSubtitle || 'মিষ্টি, সুগন্ধি ও ফরমালিন মুক্ত'}</p>
                       </div>
                     </div>
                     <div className="bg-[#EAF8E5] text-[#087F23] font-bold text-xs px-2.5 py-1 rounded-full border border-[#087F23]/20">
-                      ★ ৫.০
+                      {heroConfig.bottomBadgeRating || '★ ৫.০'}
                     </div>
                   </div>
                 </div>
 
-                {/* Secondary Floating Accent */}
-                <div className="hidden sm:flex absolute -bottom-4 -left-6 z-20 bg-white/95 backdrop-blur-md p-2 rounded-xl shadow-xl border border-gray-100 items-center gap-2 animate-bounce" style={{ animationDuration: '4s' }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=150&q=80" 
-                    alt="কাটা আম" 
-                    className="w-10 h-10 rounded-lg object-cover" 
-                  />
-                  <div className="text-left pr-1">
-                    <p className="text-[11px] font-bold text-gray-800">রসালো ও মিষ্টি</p>
-                    <p className="text-[9px] text-[#087F23] font-semibold">১০০% অর্গানিক</p>
+                {/* Secondary Floating Accent ("রসালো ও মিষ্টি / ১০০% অর্গানিক" ব্যাজ) */}
+                {heroConfig?.showFloatingBadge !== false && (
+                  <div className="flex absolute -bottom-3.5 left-2 sm:-bottom-4 sm:-left-6 z-20 bg-white/95 backdrop-blur-md p-1.5 sm:p-2 rounded-xl shadow-xl border border-gray-100 items-center gap-2 animate-bounce" style={{ animationDuration: '4s' }}>
+                    <img 
+                      src={heroConfig?.floatingBadgeImage || "https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=150&q=80"} 
+                      alt={heroConfig?.floatingBadgeTitle || "রসালো ও মিষ্টি"} 
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-cover bg-gray-100 shrink-0" 
+                      onError={(e) => {
+                        e.target.src = "https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=150&q=80";
+                      }}
+                    />
+                    <div className="text-left pr-1">
+                      <p className="text-[10px] sm:text-[11px] font-bold text-gray-800 leading-tight">
+                        {heroConfig?.floatingBadgeTitle || 'রসালো ও মিষ্টি'}
+                      </p>
+                      <p className="text-[8px] sm:text-[9px] text-[#087F23] font-semibold leading-tight mt-0.5">
+                        {heroConfig?.floatingBadgeSubtitle || '১০০% অর্গানিক'}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
               </div>
             </div>

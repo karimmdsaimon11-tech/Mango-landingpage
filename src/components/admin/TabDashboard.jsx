@@ -54,8 +54,8 @@ export default function TabDashboard({ products, orders, testimonials, siteConfi
             onClick={() => onNavigate('hero')}
             className="p-3 rounded-xl border border-gray-200 hover:border-[#087F23] bg-gray-50 hover:bg-[#EAF8E5] text-left transition-colors"
           >
-            <h4 className="font-bold text-xs sm:text-sm text-[#087F23]">হিরো ব্যানার পরিবর্তন</h4>
-            <p className="text-[11px] text-gray-500">মূল শিরোনাম, সাবটাইটেল ও ছবির লিংক এডিট করুন</p>
+            <h4 className="font-bold text-xs sm:text-sm text-[#087F23]">হিরো ব্যানার ও ব্যাজ এডিটর</h4>
+            <p className="text-[11px] text-gray-500">ব্যানার ছবি এবং "রসালো ও মিষ্টি" ব্যাজ পরিবর্তন করুন</p>
           </button>
           <button
             onClick={() => onNavigate('products')}

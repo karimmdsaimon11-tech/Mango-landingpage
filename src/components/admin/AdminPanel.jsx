@@ -79,7 +79,7 @@ export default function AdminPanel({ onClose }) {
   const tabs = [
     { id: 'dashboard', label: 'ড্যাশবোর্ড', icon: LayoutDashboard },
     { id: 'products', label: 'আম পণ্যসমূহ', icon: ShoppingBag, count: products.length },
-    { id: 'hero', label: 'হিরো ব্যানার', icon: ImageIcon },
+    { id: 'hero', label: 'হিরো ব্যানার ও ব্যাজ', icon: ImageIcon },
     { id: 'header_site', label: 'হেডার ও ঘোষণা', icon: Megaphone },
     { id: 'offers', label: 'অফার ও ফিচার', icon: Sparkles },
     { id: 'reviews', label: 'গ্রাহক রিভিউ', icon: MessageSquare, count: testimonials.length },

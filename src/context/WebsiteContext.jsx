@@ -26,6 +26,14 @@ const DEFAULT_STATE = {
     secondaryCtaText: 'আম দেখুন',
     trustBadges: ['১০০% ফ্রেশ', 'সরাসরি বাগান থেকে', 'নিরাপদ ডেলিভারি'],
     image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=85',
+    floatingBadgeImage: 'https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=150&q=80',
+    floatingBadgeTitle: 'রসালো ও মিষ্টি',
+    floatingBadgeSubtitle: '১০০% অর্গানিক',
+    showFloatingBadge: true,
+    bottomBadgeIcon: '🥭',
+    bottomBadgeTitle: 'গাছপাকা প্রিমিয়াম আম',
+    bottomBadgeSubtitle: 'মিষ্টি, সুগন্ধি ও ফরমালিন মুক্ত',
+    bottomBadgeRating: '★ ৫.০',
   },
   categories: DEFAULT_CATEGORIES,
   trustFeatures: TRUST_FEATURES,
@@ -102,10 +110,20 @@ export function WebsiteProvider({ children }) {
           brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
           logoImage: existingSite.logoImage || '',
         };
+        const existingHero = parsed.heroConfig || {};
+        const mergedHero = {
+          ...DEFAULT_STATE.heroConfig,
+          ...existingHero,
+          floatingBadgeImage: existingHero.floatingBadgeImage || DEFAULT_STATE.heroConfig.floatingBadgeImage,
+          floatingBadgeTitle: existingHero.floatingBadgeTitle !== undefined ? existingHero.floatingBadgeTitle : DEFAULT_STATE.heroConfig.floatingBadgeTitle,
+          floatingBadgeSubtitle: existingHero.floatingBadgeSubtitle !== undefined ? existingHero.floatingBadgeSubtitle : DEFAULT_STATE.heroConfig.floatingBadgeSubtitle,
+          showFloatingBadge: existingHero.showFloatingBadge !== undefined ? existingHero.showFloatingBadge : true,
+        };
         return {
           ...DEFAULT_STATE,
           ...parsed,
           siteConfig: mergedSite,
+          heroConfig: mergedHero,
           categories: mergedCategories
         };
       }
@@ -135,11 +153,24 @@ export function WebsiteProvider({ children }) {
           brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
           logoImage: existingSite.logoImage || '',
         };
+        const mergedHero = {
+          ...DEFAULT_STATE.heroConfig,
+          ...(saved.heroConfig || {})
+        };
         setData(prev => ({
           ...DEFAULT_STATE,
           ...prev,
           ...saved,
           siteConfig: mergedSite,
+          heroConfig: {
+            ...DEFAULT_STATE.heroConfig,
+            ...(prev.heroConfig || {}),
+            ...(saved.heroConfig || {}),
+            floatingBadgeImage: saved.heroConfig?.floatingBadgeImage || prev.heroConfig?.floatingBadgeImage || DEFAULT_STATE.heroConfig.floatingBadgeImage,
+            floatingBadgeTitle: saved.heroConfig?.floatingBadgeTitle !== undefined ? saved.heroConfig.floatingBadgeTitle : (prev.heroConfig?.floatingBadgeTitle || DEFAULT_STATE.heroConfig.floatingBadgeTitle),
+            floatingBadgeSubtitle: saved.heroConfig?.floatingBadgeSubtitle !== undefined ? saved.heroConfig.floatingBadgeSubtitle : (prev.heroConfig?.floatingBadgeSubtitle || DEFAULT_STATE.heroConfig.floatingBadgeSubtitle),
+            showFloatingBadge: saved.heroConfig?.showFloatingBadge !== undefined ? saved.heroConfig.showFloatingBadge : true,
+          },
           categories: mergedCategories
         }));
       }
