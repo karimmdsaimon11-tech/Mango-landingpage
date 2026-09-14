@@ -217,6 +217,7 @@ function LandingPageContent() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onOrderClick={handleOpenOrderModal}
+        onAddToCart={handleAddToCart}
       />
 
       {/* ADMIN PANEL FULLSCREEN MODAL */}

@@ -141,6 +141,16 @@ export default function Header({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
+                  onOpenSearch();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-[#EAF8E5] hover:bg-[#d5eed0] text-[#087F23] py-2.5 rounded text-sm font-semibold border border-[#087F23]/20 transition-colors"
+              >
+                <Search size={16} />
+                <span>আম কালেকশন খুঁজুন (Search Mango)</span>
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
                   onOpenTrackOrder();
                 }}
                 className="w-full flex items-center justify-center gap-2 bg-[#087F23] text-white py-2.5 rounded text-sm font-semibold shadow-xs"
