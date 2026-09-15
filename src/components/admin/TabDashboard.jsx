@@ -71,6 +71,23 @@ export default function TabDashboard({ products, orders, testimonials, siteConfi
             <h4 className="font-bold text-xs sm:text-sm text-[#087F23]">কাস্টমার অর্ডারসমূহ দেখুন</h4>
             <p className="text-[11px] text-gray-500">অর্ডারের স্ট্যাটাস পরিবর্তন করুন</p>
           </button>
+          <button
+            onClick={() => onNavigate('header_site')}
+            className="p-3 rounded-xl border border-emerald-300 hover:border-[#087F23] bg-emerald-50/60 hover:bg-[#EAF8E5] text-left transition-colors sm:col-span-3 flex items-center justify-between"
+          >
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-[#087F23] flex items-center gap-1.5">
+                <span>🔥</span>
+                <span>ক্লাউড ডাটাবেজ সিঙ্ক (সবার মোবাইলে লাইভ করার সেটিংস)</span>
+              </h4>
+              <p className="text-[11px] text-gray-600 mt-0.5">
+                ল্যাপটপে করা পরিবর্তন যেন সবার ফোনে লাইভ দেখা যায় তার জন্য Firebase কানেক্ট করুন
+              </p>
+            </div>
+            <span className="text-xs font-bold text-[#087F23] bg-white px-3 py-1.5 rounded-lg border border-emerald-200 shrink-0">
+              সেটিংস খুলুন →
+            </span>
+          </button>
         </div>
       </div>
     </div>

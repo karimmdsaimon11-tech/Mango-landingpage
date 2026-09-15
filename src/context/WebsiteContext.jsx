@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MANGO_CATEGORIES, MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
 import { savePersistentData, loadPersistentData, clearPersistentData } from '../utils/storage';
+import { getStoredCloudConfig, saveStoredCloudConfig, fetchFromCloud, saveToCloud } from '../utils/cloudSync';
 
 const WebsiteContext = createContext(null);
 
@@ -90,6 +91,9 @@ const DEFAULT_STATE = {
 };
 
 export function WebsiteProvider({ children }) {
+  const [cloudConfig, setCloudConfig] = useState(() => getStoredCloudConfig() || { projectId: '' });
+  const [isCloudSyncing, setIsCloudSyncing] = useState(false);
+  const [cloudSyncStatus, setCloudSyncStatus] = useState(null);
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -133,10 +137,29 @@ export function WebsiteProvider({ children }) {
     return DEFAULT_STATE;
   });
 
-  // On mount: Load from IndexedDB (preserves all photos & CMS changes permanently)
+    // On mount: Load from Cloud Firestore first (if configured), then fallback to IndexedDB
   useEffect(() => {
     let isMounted = true;
-    loadPersistentData(STORAGE_KEY, null).then((saved) => {
+
+    async function initData() {
+      // If cloud configured, attempt to fetch latest live data
+      if (cloudConfig?.projectId) {
+        setIsCloudSyncing(true);
+        const cloudData = await fetchFromCloud(cloudConfig.projectId);
+        setIsCloudSyncing(false);
+        if (isMounted && cloudData && typeof cloudData === 'object') {
+          setData(prev => ({
+            ...DEFAULT_STATE,
+            ...prev,
+            ...cloudData
+          }));
+          setCloudSyncStatus('synced');
+          return;
+        }
+      }
+
+      // Fallback to IndexedDB
+      const saved = await loadPersistentData(STORAGE_KEY, null);
       if (isMounted && saved && typeof saved === 'object') {
         const existingCats = Array.isArray(saved.categories) ? saved.categories : [];
         const mergedCategories = [...existingCats];
@@ -152,10 +175,6 @@ export function WebsiteProvider({ children }) {
           brandName: (existingSite.brandName && existingSite.brandName !== 'আমবাজার') ? existingSite.brandName : 'Mango Bazar',
           brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
           logoImage: existingSite.logoImage || '',
-        };
-        const mergedHero = {
-          ...DEFAULT_STATE.heroConfig,
-          ...(saved.heroConfig || {})
         };
         setData(prev => ({
           ...DEFAULT_STATE,
@@ -174,16 +193,54 @@ export function WebsiteProvider({ children }) {
           categories: mergedCategories
         }));
       }
-    });
-    return () => {
+    }
+
+    initData();
+    const updateCloudConfig = async (newConfig) => {
+    setCloudConfig(newConfig);
+    saveStoredCloudConfig(newConfig);
+    if (newConfig?.projectId) {
+      setIsCloudSyncing(true);
+      const ok = await saveToCloud(newConfig.projectId, data);
+      setIsCloudSyncing(false);
+      setCloudSyncStatus(ok ? 'synced' : 'error');
+      return ok;
+    }
+    return false;
+  };
+
+  const syncWithCloud = async () => {
+    if (!cloudConfig?.projectId) return false;
+    setIsCloudSyncing(true);
+    const remote = await fetchFromCloud(cloudConfig.projectId);
+    setIsCloudSyncing(false);
+    if (remote) {
+      setData(prev => ({ ...DEFAULT_STATE, ...prev, ...remote }));
+      setCloudSyncStatus('synced');
+      return true;
+    }
+    return false;
+  };
+
+  const exportWebsiteData = () => {
+    return JSON.stringify(data, null, 2);
+  };
+
+  return () => {
       isMounted = false;
     };
-  }, []);
+  }, [cloudConfig?.projectId]);
 
-  // Save to both IndexedDB and localStorage whenever data changes
+  // Save to both IndexedDB and localStorage, and sync to Cloud
   useEffect(() => {
     savePersistentData(STORAGE_KEY, data);
-  }, [data]);
+
+    if (cloudConfig?.projectId) {
+      saveToCloud(cloudConfig.projectId, data).then(success => {
+        if (success) setCloudSyncStatus('synced');
+      });
+    }
+  }, [data, cloudConfig?.projectId]);
 
   // Update Methods
   const updateSiteConfig = (updated) => {
@@ -349,7 +406,13 @@ export function WebsiteProvider({ children }) {
       updateFooterConfig,
       addOrder,
       updateOrderStatus,
-      resetToDefaults
+      resetToDefaults,
+      cloudConfig,
+      isCloudSyncing,
+      cloudSyncStatus,
+      updateCloudConfig,
+      syncWithCloud,
+      exportWebsiteData
     }}>
       {children}
     </WebsiteContext.Provider>

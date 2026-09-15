@@ -46,7 +46,12 @@ export default function AdminPanel({ onClose }) {
     updateFinalCta,
     updateFooterConfig,
     updateOrderStatus,
-    resetToDefaults
+    resetToDefaults,
+    cloudConfig,
+    updateCloudConfig,
+    syncWithCloud,
+    isCloudSyncing,
+    exportWebsiteData
   } = useWebsite();
 
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -196,6 +201,11 @@ export default function AdminPanel({ onClose }) {
                 siteConfig={siteConfig}
                 onSave={updateSiteConfig}
                 onNotify={triggerNotification}
+                cloudConfig={cloudConfig}
+                updateCloudConfig={updateCloudConfig}
+                syncWithCloud={syncWithCloud}
+                isCloudSyncing={isCloudSyncing}
+                exportWebsiteData={exportWebsiteData}
               />
             )}
 
