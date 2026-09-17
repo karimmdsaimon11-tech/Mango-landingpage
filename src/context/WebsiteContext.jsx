@@ -196,7 +196,12 @@ export function WebsiteProvider({ children }) {
     }
 
     initData();
-    const updateCloudConfig = async (newConfig) => {
+    return () => {
+      isMounted = false;
+    };
+  }, [cloudConfig?.projectId]);
+
+  const updateCloudConfig = async (newConfig) => {
     setCloudConfig(newConfig);
     saveStoredCloudConfig(newConfig);
     if (newConfig?.projectId) {
@@ -225,11 +230,6 @@ export function WebsiteProvider({ children }) {
   const exportWebsiteData = () => {
     return JSON.stringify(data, null, 2);
   };
-
-  return () => {
-      isMounted = false;
-    };
-  }, [cloudConfig?.projectId]);
 
   // Save to both IndexedDB and localStorage, and sync to Cloud
   useEffect(() => {
