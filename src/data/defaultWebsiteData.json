@@ -1,0 +1,294 @@
+{
+  "siteConfig": {
+    "announcementText": "রাসায়নিক ও ফরমালিন মুক্ত 100% খাঁটি গাছপাকা আম",
+    "phone": "01560021354",
+    "whatsapp": "01560021354",
+    "brandName": "Mango Bazar",
+    "brandSubtitle": "100% প্রাকৃতিক ও ফ্রেশ",
+    "logoImage": "/custom-assets/logo.webp"
+  },
+  "heroConfig": {
+    "badge": "রাজশাহী ও চাঁপাইনবাবগঞ্জের আসল আম",
+    "title": "ফ্রেশ ও মিষ্টি আম",
+    "subtitle": "সরাসরি বাগান থেকে আপনার ঘরে",
+    "description": "হিমসাগর, ল্যাংড়া, আম্রপালি সহ সেরা মানের আম এখন অনলাইনে অর্ডার করুন। কোনোরকম ফরমালিন বা ক্ষতিকর কেমিক্যাল ছাড়া গাছপাকা ফ্রেশ স্বাদের নিশ্চয়তা।",
+    "ctaText": "এখনই অর্ডার করুন",
+    "secondaryCtaText": "আম দেখুন",
+    "trustBadges": [
+      "১০০% ফ্রেশ",
+      "সরাসরি বাগান থেকে",
+      "নিরাপদ ডেলিভারি"
+    ],
+    "image": "/custom-assets/hero-banner.webp",
+    "floatingBadgeImage": "/custom-assets/hero-badge.webp",
+    "floatingBadgeTitle": "রসালো ও মিষ্টি",
+    "floatingBadgeSubtitle": "100% অর্গানিক",
+    "showFloatingBadge": true,
+    "bottomBadgeIcon": "🥭",
+    "bottomBadgeTitle": "গাছপাকা প্রিমিয়াম আম",
+    "bottomBadgeSubtitle": "মিষ্টি, সুগন্ধি ও ফরমালিন মুক্ত",
+    "bottomBadgeRating": "★ ৫.০"
+  },
+  "categories": [
+    {
+      "id": "himsagar",
+      "name": "হিমসাগর"
+    },
+    {
+      "id": "haribhanga",
+      "name": "হাঁড়িভাঙা"
+    },
+    {
+      "id": "langra",
+      "name": "ল্যাংড়া"
+    },
+    {
+      "id": "amrupali",
+      "name": "আম্রপালি"
+    },
+    {
+      "id": "fazli",
+      "name": "ফজলি"
+    },
+    {
+      "id": "gopalbhog",
+      "name": "গোপালভোগ"
+    },
+    {
+      "id": "khirsapat",
+      "name": "খিরসাপাত"
+    },
+    {
+      "id": "ashwina",
+      "name": "আশ্বিনা"
+    },
+    {
+      "id": "katimon",
+      "name": "কাটিমন"
+    },
+    {
+      "id": "banana_mango",
+      "name": "ব্যানানা আম"
+    }
+  ],
+  "trustFeatures": [
+    {
+      "id": 1,
+      "icon": "Leaf",
+      "title": "সরাসরি বাগান থেকে",
+      "desc": "বাছাইকৃত নিজস্ব আমবাগান থেকে সরাসরি আম সংগ্রহ করা হয়।"
+    },
+    {
+      "id": 2,
+      "icon": "Sparkles",
+      "title": "১০০% ফ্রেশ ও অর্গানিক",
+      "desc": "কোনোরকম ক্ষতিকর রাসায়নিক বা ফরমালিন মুক্ত খাঁটি ফল।"
+    },
+    {
+      "id": 3,
+      "icon": "Truck",
+      "title": "দ্রুত হোম ডেলিভারি",
+      "desc": "সারা বাংলাদেশে ৪৮ থেকে ৭২ ঘণ্টার মধ্যে নিরাপদ ডেলিভারি।"
+    },
+    {
+      "id": 4,
+      "icon": "ShieldCheck",
+      "title": "প্রিমিয়াম কোয়ালিটি",
+      "desc": "প্রতিটি আম সতর্কতার সাথে গ্রেডিং ও প্যাকিং করা হয়।"
+    }
+  ],
+  "products": [
+    {
+      "category": "gopalbhog",
+      "name": "গোপালভোগ",
+      "nameEn": "GopalBhog",
+      "description": "",
+      "priceMin": 190,
+      "priceMax": 210,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/gopalbhog.jpg",
+      "id": 1789209438180,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    },
+    {
+      "category": "fazli",
+      "name": "ফজলি",
+      "nameEn": "Fazli ",
+      "description": "",
+      "priceMin": 220,
+      "priceMax": 650,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/fazli.jpg",
+      "id": 1789209313644,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    },
+    {
+      "category": "amrupali",
+      "name": "আম্রপালী",
+      "nameEn": "Amrapali ",
+      "description": "",
+      "priceMin": 180,
+      "priceMax": 200,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/amrupali.webp",
+      "id": 1789209267468,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    },
+    {
+      "category": "haribhanga",
+      "name": "হরিভাঙ্গা",
+      "nameEn": "Haribhanga ",
+      "description": "",
+      "priceMin": 200,
+      "priceMax": 220,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/haribhanga.jpg",
+      "id": 1789209119636,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    },
+    {
+      "category": "langra",
+      "name": "ল্যাংড়া",
+      "nameEn": "Langra ",
+      "description": "",
+      "priceMin": 150,
+      "priceMax": 180,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/langra.png",
+      "id": 1789209053884,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    },
+    {
+      "category": "himsagar",
+      "name": "হিমসাগর",
+      "nameEn": "Himsagar ",
+      "description": "",
+      "priceMin": 120,
+      "priceMax": 150,
+      "pricePerKg": 120,
+      "minOrder": "৫ কেজি",
+      "origin": "রাজশাহী",
+      "tag": "নতুন",
+      "image": "/custom-assets/products/himsagar.png",
+      "id": 1789208983404,
+      "rating": 5,
+      "reviewsCount": 1,
+      "inStock": true
+    }
+  ],
+  "offerBanner": {
+    "tag": "সীমিত সময়ের স্পেশাল অফার",
+    "title": "এই মৌসুমের সেরা আম এখন আপনার দরজায়!",
+    "subtitle": "আজই অর্ডার করুন এবং উপভোগ করুন বাগানের তাজা স্বাদ। যেকোনো ১০ কেজি বা তার বেশি অর্ডারে বিশেষ ছাড় ও ফ্রি ডেলিভারি উপহার!",
+    "ctaText": "এখনই অর্ডার করুন",
+    "cashbackText": "১০% অতিরিক্ত ক্যাশব্যাক",
+    "image": "/custom-assets/offer-banner.webp"
+  },
+  "howItWorks": [
+    {
+      "step": "০১",
+      "title": "আম বেছে নিন",
+      "description": "আমাদের কালেকশন থেকে আপনার পছন্দের ফ্রেশ আমের জাত ও পরিমাণ নির্বাচন করুন।"
+    },
+    {
+      "step": "০২",
+      "title": "অর্ডার কনফার্ম করুন",
+      "description": "আপনার নাম, ঠিকানা ও ফোন নম্বর দিয়ে ক্যাশ অন ডেলিভারিতে অর্ডার করুন।"
+    },
+    {
+      "step": "০৩",
+      "title": "ঘরে বসে আম গ্রহণ করুন",
+      "description": "সরাসরি বাগান থেকে বাছাইকৃত তাজা আম আপনার ঘরে পৌঁছে দেওয়া হবে।"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "তানভীর আহমেদ",
+      "location": "ধানমন্ডি, ঢাকা",
+      "rating": 5,
+      "verified": true,
+      "text": "আমগুলো সত্যিই অনেক ফ্রেশ ছিল। কোনো ফরমালিনের গন্ধ নেই, একদম আসল গাছপাকা হিমসাগরের মিষ্টি স্বাদ। পরিবারের সবাই খুব খুশি হয়েছে। আবার অর্ডার করব।"
+    },
+    {
+      "id": 2,
+      "name": "সাবরিনা ইসলাম",
+      "location": "পাঁচলাইশ, চট্টগ্রাম",
+      "rating": 5,
+      "verified": true,
+      "text": "অনলাইনে আম কেনার ব্যাপারে প্রথমে একটু দ্বিধায় ছিলাম, কিন্তু আম পাওয়ার পর সব দ্বিধা দূর হয়ে গেল। কোনো দাগ নেই, প্রতিটা আম একদম অক্ষত ও সুস্বাদু।"
+    },
+    {
+      "id": 3,
+      "name": "মো: রফিকুল ইসলাম",
+      "location": "উত্তরা, ঢাকা",
+      "rating": 5,
+      "verified": true,
+      "text": "হাঁড়িভাঙা আমের সাইজ এবং মিষ্টি স্বাদ সত্যিই অতুলনীয়। সময়মতো ডেলিভারি পেয়েছি। কাস্টমার সার্ভিসের ব্যবহারও খুব ভালো ছিল। ধন্যবাদ আম বাজার টিম।"
+    }
+  ],
+  "finalCta": {
+    "badge": "ফ্রেশ আমের সেরা ঠিকানা",
+    "title": "বাগানের তাজা আম পৌঁছে যাক আপনার ঘরে",
+    "description": "আজই আপনার পছন্দের আম অর্ডার করুন। সরাসরি বাগান থেকে বাছাইকৃত শতভাগ ভেজালমুক্ত আম ঘরে বসে উপভোগ করুন।",
+    "buttonText": "অর্ডার করুন",
+    "guaranteeText": "✓ ক্যাশ অন ডেলিভারি সুবিধা | ✓ দেশব্যাপী হোম ডেলিভারি | ✓ গ্যারান্টিযুক্ত মিষ্টতা"
+  },
+  "footerConfig": {
+    "about": "Mango Bazar হচ্ছে তাজা ও রাসায়নিক মুক্ত আমের একটি অনলাইন প্ল্যাটফর্ম। আমরা সরাসরি বাগান থেকে সেরা মানের আম সংগ্রহ করে অত্যন্ত যত্ন সহকারে পৌঁছে দিই আপনার ঠিকানায়।",
+    "phone": "01560021354",
+    "whatsapp": "01560021354",
+    "email": "info@mangobazar.com",
+    "address": "বাগান হাব: কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ",
+    "copyright": "Copyright All Reserved 2026 | Made for Bengali Mango Lovers"
+  },
+  "orders": [
+    {
+      "id": "MB-784210",
+      "customerName": "তানভীর আহমেদ",
+      "phone": "01712345678",
+      "address": "বাড়ি ১২, রোড ৭, ধানমন্ডি, ঢাকা",
+      "productName": "হিমসাগর প্রিমিয়াম আম",
+      "weightKg": 10,
+      "totalAmount": 1280,
+      "date": "১২ সেপ্টেম্বর, ২০২৬",
+      "status": "সম্পন্ন"
+    },
+    {
+      "id": "MB-651920",
+      "customerName": "সাবরিনা ইসলাম",
+      "phone": "01898765432",
+      "address": "পাঁচলাইশ আবাসিক এলাকা, চট্টগ্রাম",
+      "productName": "হাঁড়িভাঙা রাজকীয় আম",
+      "weightKg": 5,
+      "totalAmount": 705,
+      "date": "১১ সেপ্টেম্বর, ২০২৬",
+      "status": "সম্পন্ন"
+    }
+  ]
+}

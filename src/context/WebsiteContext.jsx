@@ -1,94 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { MANGO_CATEGORIES, MANGO_PRODUCTS, TRUST_FEATURES, HOW_IT_WORKS_STEPS, TESTIMONIALS } from '../data/mangoData';
+import defaultWebsiteData from '../data/defaultWebsiteData.json';
 import { savePersistentData, loadPersistentData, clearPersistentData } from '../utils/storage';
 import { getStoredCloudConfig, saveStoredCloudConfig, fetchFromCloud, saveToCloud } from '../utils/cloudSync';
 
 const WebsiteContext = createContext(null);
 
-const STORAGE_KEY = 'bengali_mango_cms_v2';
+const STORAGE_KEY = 'bengali_mango_cms_v3';
 
-const DEFAULT_CATEGORIES = MANGO_CATEGORIES.filter(c => c.id !== 'all');
+const DEFAULT_CATEGORIES = defaultWebsiteData.categories || [];
 
-const DEFAULT_STATE = {
-  siteConfig: {
-    announcementText: 'রাসায়নিক ও ফরমালিন মুক্ত ১০০% খাঁটি গাছপাকা আম',
-    phone: '018112345678',
-    whatsapp: '018112345678',
-    brandName: 'Mango Bazar',
-    brandSubtitle: '100% natural and fresh',
-    logoImage: '',
-  },
-  heroConfig: {
-    badge: 'রাজশাহী ও চাঁপাইনবাবগঞ্জের আসল আম',
-    title: 'ফ্রেশ ও মিষ্টি আম',
-    subtitle: 'সরাসরি বাগান থেকে আপনার ঘরে',
-    description: 'হিমসাগর, ল্যাংড়া, আম্রপালি সহ সেরা মানের আম এখন অনলাইনে অর্ডার করুন। কোনোরকম ফরমালিন বা ক্ষতিকর কেমিক্যাল ছাড়া গাছপাকা ফ্রেশ স্বাদের নিশ্চয়তা।',
-    ctaText: 'এখনই অর্ডার করুন',
-    secondaryCtaText: 'আম দেখুন',
-    trustBadges: ['১০০% ফ্রেশ', 'সরাসরি বাগান থেকে', 'নিরাপদ ডেলিভারি'],
-    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=85',
-    floatingBadgeImage: 'https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=150&q=80',
-    floatingBadgeTitle: 'রসালো ও মিষ্টি',
-    floatingBadgeSubtitle: '১০০% অর্গানিক',
-    showFloatingBadge: true,
-    bottomBadgeIcon: '🥭',
-    bottomBadgeTitle: 'গাছপাকা প্রিমিয়াম আম',
-    bottomBadgeSubtitle: 'মিষ্টি, সুগন্ধি ও ফরমালিন মুক্ত',
-    bottomBadgeRating: '★ ৫.০',
-  },
-  categories: DEFAULT_CATEGORIES,
-  trustFeatures: TRUST_FEATURES,
-  products: MANGO_PRODUCTS,
-  offerBanner: {
-    tag: 'সীমিত সময়ের স্পেশাল অফার',
-    title: 'এই মৌসুমের সেরা আম এখন আপনার দরজায়!',
-    subtitle: 'আজই অর্ডার করুন এবং উপভোগ করুন বাগানের তাজা স্বাদ। যেকোনো ১০ কেজি বা তার বেশি অর্ডারে বিশেষ ছাড় ও ফ্রি ডেলিভারি উপহার!',
-    ctaText: 'এখনই অর্ডার করুন',
-    cashbackText: '১০% অতিরিক্ত ক্যাশব্যাক',
-    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=400&q=80',
-  },
-  howItWorks: HOW_IT_WORKS_STEPS,
-  testimonials: TESTIMONIALS,
-  finalCta: {
-    badge: 'ফ্রেশ আমের সেরা ঠিকানা',
-    title: 'বাগানের তাজা আম পৌঁছে যাক আপনার ঘরে',
-    description: 'আজই আপনার পছন্দের আম অর্ডার করুন। সরাসরি বাগান থেকে বাছাইকৃত শতভাগ ভেজালমুক্ত আম ঘরে বসে উপভোগ করুন।',
-    buttonText: 'অর্ডার করুন',
-    guaranteeText: '✓ ক্যাশ অন ডেলিভারি সুবিধা | ✓ দেশব্যাপী হোম ডেলিভারি | ✓ গ্যারান্টিযুক্ত মিষ্টতা'
-  },
-  footerConfig: {
-    about: 'Mango Bazar হচ্ছে তাজা ও রাসায়নিক মুক্ত আমের একটি অনলাইন প্ল্যাটফর্ম। আমরা সরাসরি বাগান থেকে সেরা মানের আম সংগ্রহ করে অত্যন্ত যত্ন সহকারে পৌঁছে দিই আপনার ঠিকানায়।',
-    phone: '018112345678',
-    whatsapp: '018112345678',
-    email: 'info@mangobazar.com',
-    address: 'বাগান হাব: কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ',
-    copyright: 'Copyright All Reserved 2026 | Made for Bengali Mango Lovers',
-  },
-  orders: [
-    {
-      id: 'MB-784210',
-      customerName: 'তানভীর আহমেদ',
-      phone: '01712345678',
-      address: 'বাড়ি ১২, রোড ৭, ধানমন্ডি, ঢাকা',
-      productName: 'হিমসাগর প্রিমিয়াম আম',
-      weightKg: 10,
-      totalAmount: 1280,
-      date: '১২ সেপ্টেম্বর, ২০২৬',
-      status: 'পথে আছে', // অপেক্ষমান, নিশ্চিত, পথে আছে, সম্পন্ন, বাতিল
-    },
-    {
-      id: 'MB-651920',
-      customerName: 'সাবরিনা ইসলাম',
-      phone: '01898765432',
-      address: 'পাঁচলাইশ আবাসিক এলাকা, চট্টগ্রাম',
-      productName: 'হাঁড়িভাঙা রাজকীয় আম',
-      weightKg: 5,
-      totalAmount: 705,
-      date: '১১ সেপ্টেম্বর, ২০২৬',
-      status: 'সম্পন্ন',
-    }
-  ]
-};
+const DEFAULT_STATE = defaultWebsiteData;
 
 export function WebsiteProvider({ children }) {
   const [cloudConfig, setCloudConfig] = useState(() => getStoredCloudConfig() || { projectId: '' });
@@ -110,18 +31,11 @@ export function WebsiteProvider({ children }) {
         const mergedSite = {
           ...DEFAULT_STATE.siteConfig,
           ...existingSite,
-          brandName: (existingSite.brandName && existingSite.brandName !== 'আমবাজার') ? existingSite.brandName : 'Mango Bazar',
-          brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
-          logoImage: existingSite.logoImage || '',
         };
         const existingHero = parsed.heroConfig || {};
         const mergedHero = {
           ...DEFAULT_STATE.heroConfig,
           ...existingHero,
-          floatingBadgeImage: existingHero.floatingBadgeImage || DEFAULT_STATE.heroConfig.floatingBadgeImage,
-          floatingBadgeTitle: existingHero.floatingBadgeTitle !== undefined ? existingHero.floatingBadgeTitle : DEFAULT_STATE.heroConfig.floatingBadgeTitle,
-          floatingBadgeSubtitle: existingHero.floatingBadgeSubtitle !== undefined ? existingHero.floatingBadgeSubtitle : DEFAULT_STATE.heroConfig.floatingBadgeSubtitle,
-          showFloatingBadge: existingHero.showFloatingBadge !== undefined ? existingHero.showFloatingBadge : true,
         };
         return {
           ...DEFAULT_STATE,
@@ -172,25 +86,20 @@ export function WebsiteProvider({ children }) {
         const mergedSite = {
           ...DEFAULT_STATE.siteConfig,
           ...existingSite,
-          brandName: (existingSite.brandName && existingSite.brandName !== 'আমবাজার') ? existingSite.brandName : 'Mango Bazar',
-          brandSubtitle: (existingSite.brandSubtitle && existingSite.brandSubtitle !== '১০০% প্রাকৃতিক ও ফ্রেশ') ? existingSite.brandSubtitle : '100% natural and fresh',
-          logoImage: existingSite.logoImage || '',
+        };
+        const existingHero = saved.heroConfig || {};
+        const mergedHero = {
+          ...DEFAULT_STATE.heroConfig,
+          ...(prev.heroConfig || {}),
+          ...existingHero,
         };
         setData(prev => ({
           ...DEFAULT_STATE,
           ...prev,
           ...saved,
           siteConfig: mergedSite,
-          heroConfig: {
-            ...DEFAULT_STATE.heroConfig,
-            ...(prev.heroConfig || {}),
-            ...(saved.heroConfig || {}),
-            floatingBadgeImage: saved.heroConfig?.floatingBadgeImage || prev.heroConfig?.floatingBadgeImage || DEFAULT_STATE.heroConfig.floatingBadgeImage,
-            floatingBadgeTitle: saved.heroConfig?.floatingBadgeTitle !== undefined ? saved.heroConfig.floatingBadgeTitle : (prev.heroConfig?.floatingBadgeTitle || DEFAULT_STATE.heroConfig.floatingBadgeTitle),
-            floatingBadgeSubtitle: saved.heroConfig?.floatingBadgeSubtitle !== undefined ? saved.heroConfig.floatingBadgeSubtitle : (prev.heroConfig?.floatingBadgeSubtitle || DEFAULT_STATE.heroConfig.floatingBadgeSubtitle),
-            showFloatingBadge: saved.heroConfig?.showFloatingBadge !== undefined ? saved.heroConfig.showFloatingBadge : true,
-          },
-          categories: mergedCategories
+          heroConfig: mergedHero,
+          categories: mergedCategories.length > 0 ? mergedCategories : DEFAULT_CATEGORIES
         }));
       }
     }
