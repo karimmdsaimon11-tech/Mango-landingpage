@@ -18,7 +18,8 @@ if (cssMatch) {
   const cssPath = path.join(distDir, cssHref);
   if (fs.existsSync(cssPath)) {
     const cssContent = fs.readFileSync(cssPath, 'utf8');
-    html = html.replace(cssMatch[0], `<style>\n${cssContent}\n</style>`);
+    // Using split.join avoids regex $ replacement mangling
+    html = html.split(cssMatch[0]).join(`<style>\n${cssContent}\n</style>`);
   }
 }
 
@@ -29,8 +30,12 @@ if (jsMatch) {
   const jsPath = path.join(distDir, jsSrc);
   if (fs.existsSync(jsPath)) {
     let jsContent = fs.readFileSync(jsPath, 'utf8');
+    // Replace custom assets path to relative ./custom-assets/
     jsContent = jsContent.replace(/\/custom-assets\//g, './custom-assets/');
-    html = html.replace(jsMatch[0], `<script type="module">\n${jsContent}\n</script>`);
+    // Escape </script> inside JS so browser parser never terminates script tag prematurely
+    jsContent = jsContent.replace(/<\/script/gi, '<\\/script');
+    // Using split.join avoids regex $ replacement mangling
+    html = html.split(jsMatch[0]).join(`<script type="module">\n${jsContent}\n</script>`);
   }
 }
 
